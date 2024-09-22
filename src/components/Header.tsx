@@ -1,14 +1,21 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom"
+import { useAppStore } from "../store/useAppStore";
 
 const Header = () => {
       // const location = useLocation();
       const { pathname } = useLocation();
-      const isHome = useMemo(() => pathname === '/', [pathname])
+      const isHome = useMemo(() => pathname === '/', [pathname]);
+      const { fettchCategories, categories } = useAppStore();
+      console.log(categories);
       //console.log(isHome);
 
       // console.log(location.pathname);
       //console.log(pathname);
+
+      useEffect(() => {
+            fettchCategories()
+      }, []);
 
       return (
             <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-800'}>
