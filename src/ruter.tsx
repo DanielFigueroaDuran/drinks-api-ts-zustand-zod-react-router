@@ -3,7 +3,6 @@ import IndexPage from "./views/IndexPage"
 import FavoritesPages from "./views/FavoritesPages"
 import Layout from "./layout/Layout"
 
-
 const AppRuter = () => {
       return (
             <BrowserRouter>
