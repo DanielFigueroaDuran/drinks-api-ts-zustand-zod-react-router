@@ -39,7 +39,7 @@ const Header = () => {
             };
 
             //check the recipes
-            searchRecipes();
+            searchRecipes(searchFilters);
       }
 
       return (
