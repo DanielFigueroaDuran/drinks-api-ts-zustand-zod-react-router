@@ -1,13 +1,17 @@
-import { useEffect, useMemo } from "react";
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom"
 import { useAppStore } from "../store/useAppStore";
 
 const Header = () => {
+      const [searchFilters, setSearchFilters] = useState({
+            ingredient: '',
+            category: ''
+      });
       // const location = useLocation();
       const { pathname } = useLocation();
       const isHome = useMemo(() => pathname === '/', [pathname]);
-      const { fettchCategories, categories } = useAppStore();
-      console.log(categories);
+      const { fettchCategories, categories, searchRecipes } = useAppStore();
+      //console.log(categories);
       //console.log(isHome);
 
       // console.log(location.pathname);
@@ -16,6 +20,27 @@ const Header = () => {
       useEffect(() => {
             fettchCategories()
       }, []);
+
+      const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
+            setSearchFilters({
+                  ...searchFilters,
+                  [event.target.name]: event.target.value
+            })
+      }
+
+      const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+
+            //validate
+
+            if (Object.values(searchFilters).includes('')) {
+                  console.log('Todos los campos son obligatorios');
+                  return
+            };
+
+            //check the recipes
+            searchRecipes();
+      }
 
       return (
             <header className={isHome ? 'bg-header bg-center bg-cover' : 'bg-slate-800'}>
@@ -46,7 +71,10 @@ const Header = () => {
                         </div>
 
                         {isHome && (
-                              <form className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6">
+                              <form
+                                    className="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6"
+                                    onSubmit={handleSubmit}
+                              >
                                     <div className="space-y-4">
                                           <label
                                                 className="block text-white uppercase font-extrabold text-lg"
@@ -60,6 +88,8 @@ const Header = () => {
                                                 type="text"
                                                 name="ingredient"
                                                 id="ingredient"
+                                                onChange={handleChange}
+                                                value={searchFilters.ingredient}
                                                 placeholder="Nombre o Ingrediente. Ej. Vodka, Tequila, Café"
                                           />
                                     </div>
@@ -67,18 +97,28 @@ const Header = () => {
                                     <div className="space-y-4">
                                           <label
                                                 className="block text-white uppercase font-extrabold text-lg"
-                                                htmlFor="categories"
+                                                htmlFor="category"
                                           >
                                                 Categorias
                                           </label>
 
                                           <select
                                                 className="p-3 w-full rounded-lg focus:outline-none"
-                                                name="categories"
-                                                id="categories"
-
+                                                name="category"
+                                                id="category"
+                                                onChange={handleChange}
+                                                value={searchFilters.category}
                                           >
                                                 <option value="">-- Seleccione --</option>
+                                                {categories.drinks.map(categorie => (
+                                                      <option
+                                                            key={categorie.strCategory}
+                                                            value={categorie.strCategory}
+                                                      >
+                                                            {categorie.strCategory}
+                                                      </option>
+                                                ))
+                                                }
 
                                           </select>
                                     </div>
