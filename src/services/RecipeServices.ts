@@ -1,5 +1,6 @@
 import axios from "axios";
 import { CategoriesApiResponseShema } from "../utils/recipes-shema";
+import { SearchFilter } from "../types";
 
 export const getCategories = async () => {
       const url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
@@ -12,3 +13,9 @@ export const getCategories = async () => {
       }
 };
 
+export const getRecipes = async (filters: SearchFilter) => {
+      //console.log(filters);
+      const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filters.category}&i=${filters.ingredient}`
+      const { data } = await axios(url);
+      console.log(data);
+}
