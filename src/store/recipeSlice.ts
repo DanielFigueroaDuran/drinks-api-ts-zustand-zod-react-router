@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand"
-import { getCategories, getRecipes } from "../services/RecipeServices"
+import { getCategories, getRecipeId, getRecipes } from "../services/RecipeServices"
 import { Categories, Drink, Drinks, SearchFilter } from "../types"
 import axios from "axios"
 
@@ -39,8 +39,7 @@ export const createRecipesSlice: StateCreator<RecipeSliceType> = (set) => ({
       },
 
       selectRecipe: async (id) => {
-            console.log(id);
-            const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`
-            const data = await axios(url);
+            await getRecipeId(id);
+
       }
 })
