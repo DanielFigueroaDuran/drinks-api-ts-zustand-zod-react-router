@@ -4,7 +4,7 @@ import { useAppStore } from '../store/useAppStore';
 import { Recipe } from '../types';
 
 export default function Modal() {
-      const { modal, closeModal, selectedRecipe } = useAppStore();
+      const { modal, closeModal, selectedRecipe, handleClickFavorite } = useAppStore();
 
       const renderIngredients = () => {
             const ingredients: JSX.Element[] = [];
@@ -89,6 +89,7 @@ export default function Modal() {
                                                                   className='w-full rounded bg-orange-600 p-3 font-bold uppercase
                                                              text-white shadow hover:bg-orange-500'
                                                                   type='button'
+                                                                  onClick={() => handleClickFavorite(selectedRecipe)}
                                                             >
                                                                   Agregar a Fovoritos
                                                             </button>
