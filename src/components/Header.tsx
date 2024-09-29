@@ -10,7 +10,7 @@ const Header = () => {
       // const location = useLocation();
       const { pathname } = useLocation();
       const isHome = useMemo(() => pathname === '/', [pathname]);
-      const { fettchCategories, categories, searchRecipes } = useAppStore();
+      const { fettchCategories, categories, searchRecipes, showNotification } = useAppStore();
       //console.log(categories);
       //console.log(isHome);
 
@@ -31,10 +31,13 @@ const Header = () => {
       const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
 
-            //validate
-
+            //validate            
             if (Object.values(searchFilters).includes('')) {
-                  console.log('Todos los campos son obligatorios');
+                  showNotification({
+                        text: 'Todos los campos son obligatorios',
+                        error: true
+                  })
+
                   return
             };
 

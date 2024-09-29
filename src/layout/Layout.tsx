@@ -7,7 +7,7 @@ import Notification from "../components/Notification"
 
 const Layout = () => {
 
-      const { loadFronStorage, notification } = useAppStore();
+      const { loadFronStorage } = useAppStore();
 
       useEffect(() => {
             loadFronStorage()
