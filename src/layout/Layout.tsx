@@ -6,7 +6,7 @@ import { useAppStore } from "../store/useAppStore"
 
 const Layout = () => {
 
-      const { loadFronStorage } = useAppStore();
+      const { loadFronStorage, notification } = useAppStore();
 
       useEffect(() => {
             loadFronStorage()
