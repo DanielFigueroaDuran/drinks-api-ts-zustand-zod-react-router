@@ -68,7 +68,7 @@ const Header = () => {
                                                 isActive ? ' text-orange-500 uppercase font-bold' : 'text-white uppercase font-bold'
                                           }
                                     >
-                                          Favotitos
+                                          Favoritos
                                     </NavLink>
                               </nav>
                         </div>
